@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/phytreeviz-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/phytreeviz-{{ version }}.tar.gz
   sha256: 4bc23eeb0c2f5708dfcad35e7bf2c78e5e71af51fc44e8dd167af213f72781a0
 
 build:
@@ -14,15 +14,15 @@ build:
     - phytreeviz = phytreeviz.scripts:cli.main
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.8
+    - python {{ python_min }}
     - poetry-core
     - pip
   run:
-    - python >=3.8
+    - python >={{ python_min }}
     - matplotlib-base >=3.5.3
     - biopython >=1.7.9
     - numpy >=1.21.1
@@ -35,6 +35,7 @@ test:
     - phytreeviz --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/moshi4/phyTreeViz/
